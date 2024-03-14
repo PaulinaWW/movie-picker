@@ -12,6 +12,14 @@ useEffect(() => {
     setMovies(fetchedMovies);
   }, []);
 
+    fetch "../assets/genres.json"
+
+
+      .then(response => response.json())
+      .then(data => setMovies(data))
+      .catch(error => console.error('Error fetching movies:', error));
+  }, []);
+
   return (
     <div>
       <h2>Movie List</h2>
@@ -20,6 +28,7 @@ useEffect(() => {
           <li key={movie.id}>
             <h3>{movie.title}</h3>
             <p>{movie.description}</p>
+            {/* Add more movie details as needed */}
           </li>
         ))}
       </ul>
