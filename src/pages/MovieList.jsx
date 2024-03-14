@@ -1,37 +1,32 @@
-import React, { useState, useEffect } from "react-router";
+import React from 'react';
 import genreJson from "../assets/genres.json";
-export const MovieList = () => {
-  return (
-    <div>MovieList</div>
-  )
-const[movies, setMovies] = useState([]);
-}
-useEffect(() => {
-    console.log('render')
-    const fetchData 
-    setMovies(fetchedMovies);
-  }, []);
 
-    fetch "../assets/genres.json"
+const MovieList = ({ moviesData }) => {
+  const moviePictureUrl = "https://image.tmdb.org/t/p/w300";
 
-
-      .then(response => response.json())
-      .then(data => setMovies(data))
-      .catch(error => console.error('Error fetching movies:', error));
-  }, []);
+  const getGenreNames = (genresIds) => {
+    return genresIds.map(genreId => {
+      const genre = genreJson.find(genre => genre.id === genreId);
+      return genre ? genre.name : null;
+    }).filter(name => name !== null).join(", ");
+  };
 
   return (
-    <div>
-      <h2>Movie List</h2>
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <h3>{movie.title}</h3>
-            <p>{movie.description}</p>
-            {/* Add more movie details as needed */}
-          </li>
+    <div className="movie-list">
+      <h1>Movie List</h1>
+      <div className="movies-container">
+        {moviesData.map((movie) => (
+          <Link to={`/details/${movie.id}`} key={movie.id} className="movie-card">
+            <img src={moviePictureUrl + movie.poster_path} alt={`Poster of ${movie.title}`} />
+            <div className="movie-info">
+              <h2>{movie.title}</h2>
+              <p>Release Date: {movie.release_date}</p>
+              <p>Genres: {getGenreNames(movie.genre_ids)}</p>
+              <p>Score: {Math.round(movie.vote_average * 10) / 10}</p>
+            </div>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
