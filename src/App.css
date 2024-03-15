@@ -11,18 +11,17 @@
   padding: 10px;
 }
 
-.nav-header .nav-logo {
+.nav-logo {
   width: 50px;
 }
 
-.nav-header div.nav-text {
-  transition: 0.5s;
+.nav-text {
+  transition: 0.4s;
   text-transform: uppercase;
 }
 
-.nav-header div.nav-text:hover {
-  /* color: #ee4444; */
-  text-shadow: 0 0 15px #ee4444;
+.nav-text:hover {
+  color: #ee4444;
 }
 
 .banner-container {
@@ -31,7 +30,6 @@
 
 .banner {
   height: 700px;
-  /* background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9)); */
   background-repeat: no-repeat;
   box-shadow: 0 0 80px 28px rgb(29, 25, 22) inset;
   background-size: cover;

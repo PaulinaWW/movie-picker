@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-// import reactLogo from "../assets/react.svg";
-import clapperBoardlogo from "../assets/imgs/clapperboard.png"; //Phillip added the image to the folder
+import clapperBoardlogo from "../assets/imgs/clapperboard.png";
 
 export const NavBar = () => {
   return (
