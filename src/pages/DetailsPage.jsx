@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import genreJson from "../assets/genres.json";
 import { useNavigate } from "react-router-dom";
-import placeholder from "../assets/imgs/placeholder.png";
+import placeholder from "../assets/imgs/placeholder.jpg";
 export const DetailsPage = ({ movieData, setMovieData }) => {
   const { id } = useParams();
   const placeholderImage = placeholder;
