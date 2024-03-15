@@ -11,17 +11,18 @@
   padding: 10px;
 }
 
-.nav-logo {
+.nav-header .nav-logo {
   width: 50px;
 }
 
-.nav-text {
-  transition: 0.4s;
+.nav-header div.nav-text {
+  transition: 0.5s;
   text-transform: uppercase;
 }
 
-.nav-text:hover {
-  color: #ee4444;
+.nav-header div.nav-text:hover {
+  /* color: #ee4444; */
+  text-shadow: 0 0 15px #ee4444;
 }
 
 .banner-container {
@@ -30,6 +31,7 @@
 
 .banner {
   height: 700px;
+  /* background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9)); */
   background-repeat: no-repeat;
   box-shadow: 0 0 80px 28px rgb(29, 25, 22) inset;
   background-size: cover;
@@ -62,4 +64,12 @@
 
 .banner-overlay-container > button:hover {
   background-color: rgb(235, 29, 29);
+}
+
+.add-movie-form > label {
+  margin-bottom: 20px;
+}
+
+.add-movie-form button {
+  color: black;
 }

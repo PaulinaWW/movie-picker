@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import clapperBoardlogo from "../assets/imgs/clapperboard.png";
+// import reactLogo from "../assets/react.svg";
+import clapperBoardlogo from "../assets/imgs/clapperboard.png"; //Phillip added the image to the folder
 
 export const NavBar = () => {
   return (
@@ -16,6 +17,9 @@ export const NavBar = () => {
         </Link>
         <Link to="/">
           <div className="nav-text">Movie Picker</div>
+        </Link>
+        <Link to="/add-movie">
+          <div className="nav-text">Add Movie</div>
         </Link>
       </nav>
     </div>
