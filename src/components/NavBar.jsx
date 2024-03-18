@@ -22,6 +22,7 @@ export const NavBar = () => {
           <div className="nav-text">Add Movie</div>
         </Link>
       </nav>
+      <div className="nav-empty-space"></div>
     </div>
   );
 };

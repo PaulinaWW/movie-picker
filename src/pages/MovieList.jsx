@@ -1,14 +1,32 @@
 // import genreJson from "../assets/genres.json";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import placeholderImage from "../assets/imgs/placeholder.jpg";
 
-const MovieList = ({ movieData }) => {
+const MovieList = () => {
+  const [movieData, setMovieData] = useState(null);
+
+  useEffect(() => {
+    const getMovies = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/movies");
+        const parsedRes = await res.json();
+        setMovieData(parsedRes);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getMovies();
+  }, []);
+
   const moviePictureUrl = "https://image.tmdb.org/t/p/w300";
-  const [movieFilter, setMovieFilter] = useState(movieData);
+  const [movieFilter, setMovieFilter] = useState(null);
 
   const [activeFilter, setActiveFilter] = useState("all");
-
+  if (!movieData) {
+    return <p>loading</p>;
+  }
   return (
     <div className="movie-list">
       <div className="filter-list">
@@ -39,7 +57,7 @@ const MovieList = ({ movieData }) => {
       </div>
 
       <div className="movies-container">
-        {movieFilter.map((movie) => (
+        {movieData.map((movie) => (
           <Link to={`/movie/${movie.id}`} key={movie.id}>
             <div className="movie-card">
               <img src={movie.poster_path ? moviePictureUrl + movie.poster_path : placeholderImage} />

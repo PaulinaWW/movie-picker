@@ -2,84 +2,112 @@ import { useParams } from "react-router";
 import genreJson from "../assets/genres.json";
 import { useNavigate } from "react-router-dom";
 import placeholder from "../assets/imgs/placeholder.jpg";
-export const DetailsPage = ({ movieData, setMovieData }) => {
+import { useState, useEffect } from "react";
+
+export const DetailsPage = () => {
+  const [movieData, setMovieData] = useState(null);
   const { id } = useParams();
   const placeholderImage = placeholder;
-  const movieProfile = movieData.find((movie) => movie.id == id);
+  // const movieData = movieData.find((movie) => movie.id == id);
   const moviePictureUrl = "https://image.tmdb.org/t/p/w500";
-  console.log("the movie id after finding is ", id, "the movieData", movieData);
+  // console.log("the movie id after finding is ", id, "the movieData", movieData);
   const nav = useNavigate();
 
-  const getGenreNames = (movieProfile, genreJson) => {
+  useEffect(() => {
+    const getMovies = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/movies/${id}`);
+        const parsedRes = await res.json();
+        setMovieData(parsedRes);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getMovies();
+  }, []);
+
+  const getGenreNames = (movieData, genreJson) => {
     const genreNames = [];
 
-    // console.log("This is the movieProfile", movieProfile);
-    // console.log("This is the rawData", genreJson);
-    if (movieProfile.genre_ids) {
-      movieProfile.genre_ids.forEach((genreId) => {
+    if (movieData.genre_ids) {
+      movieData.genre_ids.forEach((genreId) => {
         const genre = genreJson.find((genre) => genre.id == genreId);
         if (genre) {
           genreNames.push(genre.name);
         }
       });
     }
-    // console.log("This is the filtered Genre Names", genreNames);
+
     return genreNames;
   };
-  const genreNames = getGenreNames(movieProfile, genreJson);
-
-  // console.log("This is the genreNames", genreNames);
 
   // Delete Button
 
-  const handleDelete = (id) => {
-    console.log("Deleting movie with id:", id);
-    console.log(
-      "Movie data IDs:",
-      movieData.map((movie) => movie.id)
-    );
-    const filteredMovies = movieData.filter((movieFilter) => movieFilter.id !== id);
-    console.log("Filtered movies:", filteredMovies);
-    setMovieData(filteredMovies);
-    nav("/add-movie");
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:5000/movies/${id}`, {
+        method: "DELETE",
+      });
+      // const parsed = await response.json();
+      // console.log("You deleted something successfully!", parsed);
+    } catch (err) {
+      console.log(err);
+    }
+    nav("/");
   };
+
+  if (!movieData) {
+    return <p>loading</p>;
+  }
 
   return (
     <div className="movie-details-page">
-      <h1>MovieDetailsPage</h1>
-      {movieProfile && (
+      {movieData && (
         <div className="movie-details-card">
-          <br />
-          <img
-            src={movieProfile.poster_path ? moviePictureUrl + movieProfile.poster_path : placeholderImage}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null; // prevents looping
-              currentTarget.src = movieProfile.poster_path;
-            }}
-          />
-          <p></p>
-          <h3>Title:</h3> <strong>{movieProfile.title}</strong>
-          <p></p>
-          Release Date: <h2>{movieProfile.release_date}</h2>
-          <p></p>
-          <h1>General Information:</h1> {movieProfile.overview}
-          <p></p>
-          {movieProfile.vote_average && (
+          <div className="movie-details-col1">
+            <img
+              src={movieData.poster_path ? moviePictureUrl + movieData.poster_path : placeholderImage}
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = movieData.poster_path;
+              }}
+            />
+          </div>
+          <div className="movie-details-col2">
+            <h1>{movieData.title}</h1>
             <div>
-              <h4>ReviewScore:</h4> {Math.round(movieProfile.vote_average * 100) / 100}
+              <h4>Release Date:</h4>
+              <p>{movieData.release_date}</p>
             </div>
-          )}
-          <p></p>
-          <strong>Genres: {genreNames.join(", ")}</strong>
-          <p />
-          <button
-            onClick={() => {
-              handleDelete(movieProfile.id);
-              console.log("movie deleted");
-            }}
-          >
-            Delete Object
-          </button>
+            {/* .release_date.toLocaleDateString("en-GB") */}
+            <div>
+              <h4>General Information</h4>
+              <p>{movieData.overview}</p>
+            </div>
+            {movieData.vote_average && (
+              <div>
+                <h4>ReviewScore</h4>
+                <p>{Math.round(movieData.vote_average * 100) / 100}</p>
+              </div>
+            )}
+            <div>
+              <h4>Genres</h4>
+              <p>{getGenreNames(movieData, genreJson).join(", ")}</p>
+            </div>
+            <div className="crud-btn-container">
+              <button
+                className="crud-btn"
+                onClick={() => {
+                  handleDelete(movieData.id);
+                  console.log("movie deleted");
+                }}
+              >
+                Delete Movie
+              </button>
+              <button className="crud-btn">Edit</button>
+            </div>
+          </div>
         </div>
       )}
     </div>

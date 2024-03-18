@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const AddMovie = ({ movieData, setMovieData }) => {
+export const AddMovie = () => {
   const [title, setTitle] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
   const [overview, setOverview] = useState("");
   const [posterPath, setPosterPath] = useState("");
   const [genre, setGenre] = useState("");
+  const [movieData, setMovieData] = useState(null);
 
   const nav = useNavigate();
 
-  const handleAddCard = (e) => {
+  const handleAddCard = async (e) => {
     e.preventDefault();
 
     const newMovie = {
@@ -19,11 +20,52 @@ export const AddMovie = ({ movieData, setMovieData }) => {
       overview: overview,
       poster_path: posterPath,
       genre_ids: [genre],
-      id: movieData.length + 1,
     };
 
-    setMovieData([newMovie, ...movieData]);
-    nav(`/movie/${newMovie.id}`);
+    try {
+      const res = await fetch(`http://localhost:5000/movies/`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(newMovie),
+      });
+
+      const parsed = await res.json();
+      console.log("Movie was successfully added", parsed);
+
+      nav(`/movie/${parsed.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleResetDB = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/movies-backup");
+      const parsedRes = await res.json();
+      setMovieData(parsedRes);
+      console.log("This is the ", movieData);
+
+      try {
+        const res = await fetch(`http://localhost:5000/movies/`, {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(movieData),
+        });
+
+        const parsed = await res.json();
+        console.log("Movie was successfully updated", parsed);
+
+        nav("/");
+      } catch (err) {
+        console.log(err);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -61,8 +103,11 @@ export const AddMovie = ({ movieData, setMovieData }) => {
             <option value="35">Comedy</option>
           </select>
         </label>
-        <button>Add Movie</button>
+        <button className="crud-btn">Add Movie</button>
       </form>
+      <button className="crud-btn" onClick={handleResetDB}>
+        RESET DB
+      </button>
     </div>
   );
 };
