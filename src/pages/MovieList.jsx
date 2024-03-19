@@ -16,12 +16,13 @@ const MovieList = () => {
         console.log(err);
       }
     };
-
-    getMovies();
+    setTimeout(async () => {
+      getMovies();
+    }, 2000);
   }, []);
 
   const moviePictureUrl = "https://image.tmdb.org/t/p/w300";
-  const [movieFilter, setMovieFilter] = useState(null);
+  // const [movieFilter, setMovieFilter] = useState(null);
 
   const [activeFilter, setActiveFilter] = useState("all");
   if (!movieData) {

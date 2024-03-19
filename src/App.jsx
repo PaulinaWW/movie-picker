@@ -6,6 +6,7 @@ import { NavBar } from "./components/NavBar";
 import { MovieBanner } from "./components/MovieBanner";
 import MovieList from "./pages/MovieList";
 import { AddMovie } from "./pages/AddMovie";
+import { EditPage } from "./pages/EditPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           }
         />
         <Route path="/movie/:id" element={<DetailsPage />} />
+        <Route path="/edit-movie/:id" element={<EditPage />} />
         <Route path="/moviepicker" element={MovieBanner} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/add-movie" element={<AddMovie />} />
