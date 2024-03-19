@@ -3,10 +3,11 @@ import { DetailsPage } from "./pages/DetailsPage";
 import { Route, Routes } from "react-router-dom";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { NavBar } from "./components/NavBar";
-import { MovieBanner } from "./components/MovieBanner";
+import { SlideExample } from "./components/SlideExample";
 import MovieList from "./pages/MovieList";
 import { AddMovie } from "./pages/AddMovie";
 import { EditPage } from "./pages/EditPage";
+import { MovieBanner } from "./components/MovieBanner";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           path="/"
           element={
             <>
-              <MovieBanner /> <MovieList />
+              <SlideExample /> <MovieList />
             </>
           }
         />
