@@ -1,0 +1,16 @@
+{
+  "questions": [
+    {
+      "question": "What Genre do you prefer?",
+      "answers": ["Action", "Drama", "Comedy", "Romance"]
+    },
+    {
+      "question": "How old are you?",
+      "answers": ["<12", "12-18", "18-29", "30+"]
+    },
+    {
+      "question": "Question 3",
+      "answers": ["A1", "A2", "A3", "A4"]
+    }
+  ]
+}

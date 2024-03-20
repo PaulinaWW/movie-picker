@@ -6,7 +6,7 @@
   align-items: center;
   width: 100%;
   padding: 0 10px;
-  z-index: 1;
+  z-index: 2;
   /* opacity: 0.6; */
   height: 100px;
 }
@@ -134,8 +134,7 @@
 }
 
 .filter-checked {
-  border: 1px solid #ee4444;
-  border-radius: 20px;
+  border: 1px solid #ee4444 !important;
 }
 
 .movie-details-card {
@@ -179,4 +178,124 @@
   background-color: white;
   color: #ee4444;
   transition: none;
+}
+
+.about-us-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.about-us-title {
+  display: flex;
+  justify-content: center;
+}
+
+.member-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.team-member {
+  border: 1px solid #ee4444;
+  border-radius: 10px;
+  height: 450px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.member-img {
+  width: 230px;
+  border-radius: 10px;
+}
+
+.team-socials {
+  list-style: none;
+  margin: 5px 0 0 0;
+  padding: 0;
+}
+
+.team-socials a {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 15px;
+}
+
+.team-socials a:hover div {
+  color: #ee4444;
+}
+
+.img-social {
+  width: 35px;
+  padding: 5px 0;
+}
+
+.movie-picker-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.question-container {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.answer-list {
+  border: 1px solid #ee4444;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 30%;
+  padding: 10px 0;
+  /* gap: 30px; */
+}
+
+.answer {
+  width: 100%;
+  cursor: pointer;
+}
+
+.answer div {
+  text-align: center;
+  padding: 20px 0;
+  font-weight: 700;
+}
+
+.answer:hover {
+  background-color: #ee4444;
+}
+
+.filter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.genre-div {
+  height: 40px;
+  width: 9%;
+  text-align: center;
+  border: 1px solid #272320;
+  border-radius: 10px;
+  background-color: #272320;
+}
+
+.genre-div:hover {
+  border: 1px solid #ee4444;
 }

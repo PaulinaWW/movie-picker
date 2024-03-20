@@ -7,7 +7,7 @@ export const AddMovie = () => {
   const [overview, setOverview] = useState("");
   const [posterPath, setPosterPath] = useState("");
   const [genre, setGenre] = useState("");
-  const [movieData, setMovieData] = useState(null);
+  // const [movieData, setMovieData] = useState(null);
 
   const nav = useNavigate();
 
@@ -35,34 +35,6 @@ export const AddMovie = () => {
       console.log("Movie was successfully added", parsed);
 
       nav(`/movie/${parsed.id}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleResetDB = async () => {
-    try {
-      const res = await fetch(`${API_URL}/movies-backup`);
-      const parsedRes = await res.json();
-      setMovieData(parsedRes);
-      console.log("This is the ", movieData);
-
-      try {
-        const res = await fetch(`${API_URL}/movies/`, {
-          method: "PUT",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(movieData),
-        });
-
-        const parsed = await res.json();
-        console.log("Movie was successfully updated", parsed);
-
-        nav("/");
-      } catch (err) {
-        console.log(err);
-      }
     } catch (err) {
       console.log(err);
     }
@@ -105,9 +77,6 @@ export const AddMovie = () => {
         </label>
         <button className="crud-btn">Add Movie</button>
       </form>
-      <button className="crud-btn" onClick={handleResetDB}>
-        RESET DB
-      </button>
     </div>
   );
 };

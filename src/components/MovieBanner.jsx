@@ -1,44 +1,42 @@
-import { useState, useEffect } from "react";
-
-import testimg from "../assets/imgs/example-movie-poster.jpg";
+import { Fade, Slide } from "react-slideshow-image";
+import "react-slideshow-image/dist/styles.css";
+// import testimg from "../assets/imgs/example-movie-poster.jpg";
 import harryPotterImg from "../assets/imgs/harry-potter-poster.jpg";
 import alienImg from "../assets/imgs/alien-poster.png";
-import MovieList from "../pages/MovieList";
+import interstellarImg from "../assets/imgs/interstellar-movie-poster.jpg";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 export const MovieBanner = () => {
-  const images = [testimg, harryPotterImg, alienImg];
-  const [movieBannerImage, setMovieBannerImage] = useState(testimg);
-
-  // const getRandomBanner = (array) => {
-  //   const randomIndex = Math.floor(Math.random() * array.length);
-  //   console.log(randomIndex);
-  //   return array[randomIndex];
-  // };
-  // const pictureInterval = () => {
-  //   getRandomBanner(images);
-  //   setInterval(() => {
-  //     getRandomBanner(images);
-  //   }, 2000);
-  // };
-
-  const getBanner = () => {
-    const bannerTimer = setTimeout(() => {
-      setMovieBannerImage(images.indexOf(movieBannerImage) + 1 >= images.length ? images[0] : images[images.indexOf(movieBannerImage) + 1]);
-      console.log(images.indexOf(movieBannerImage));
-    }, 6000);
-  };
-
-  useEffect(() => {
-    getBanner();
-  }, [movieBannerImage]);
+  const images = [alienImg, interstellarImg, harryPotterImg];
+  const nav = useNavigate();
 
   return (
-    <div className="banner-container">
-      <div className="banner" style={{ "--banner-url": `url(${movieBannerImage})` }} />
+    <>
+      <Fade arrows={false}>
+        <div className="banner-container">
+          <div className="banner" style={{ backgroundImage: `url(${images[0]})` }}></div>
+        </div>
+        <div className="banner-container">
+          <div className="banner" style={{ backgroundImage: `url(${images[1]})` }}></div>
+        </div>
+        <div className="banner-container">
+          <div className="banner" style={{ backgroundImage: `url(${images[2]})` }}></div>
+        </div>
+      </Fade>
       <div className="banner-overlay-container">
         <h1>Movie Picker</h1>
         <p>Everybodies choice when it comes to picking movies. Let&apos;s find the perfect movie for you!</p>
-        <button>Get Started</button>
+        <Link to="/movie-picker">
+          <button
+            onClick={() => {
+              nav("/movie-picker");
+            }}
+          >
+            Get Started
+          </button>
+        </Link>
       </div>
-    </div>
+    </>
   );
 };

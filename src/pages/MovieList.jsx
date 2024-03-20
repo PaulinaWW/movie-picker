@@ -3,16 +3,23 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import placeholderImage from "../assets/imgs/placeholder.jpg";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+import genreJson from "../assets/genres.json";
 
 const MovieList = () => {
   const [movieData, setMovieData] = useState(null);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [selectedGenreID, setSelectedGenreID] = useState("all");
+  const [activeFilter, setActiveFilter] = useState("All");
+  const moviePictureUrl = "https://image.tmdb.org/t/p/w300";
 
   useEffect(() => {
     const getMovies = async () => {
       try {
         const res = await fetch(`${API_URL}/movies`);
         const parsedRes = await res.json();
-        setMovieData(parsedRes);
+        if (parsedRes) {
+          setMovieData(parsedRes);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -22,10 +29,17 @@ const MovieList = () => {
     }, 2000);
   }, []);
 
-  const moviePictureUrl = "https://image.tmdb.org/t/p/w300";
-  // const [movieFilter, setMovieFilter] = useState(null);
+  useEffect(() => {
+    if (movieData) {
+      if (selectedGenreID === "all") {
+        setFilteredMovies(movieData);
+      } else {
+        const filtered = movieData.filter((movie) => movie.genre_ids.includes(selectedGenreID));
+        setFilteredMovies(filtered);
+      }
+    }
+  }, [movieData, selectedGenreID]);
 
-  const [activeFilter, setActiveFilter] = useState("all");
   if (!movieData) {
     return <p>loading</p>;
   }
@@ -34,38 +48,42 @@ const MovieList = () => {
       <div className="filter-list">
         <div
           name="all"
-          className={"all" == activeFilter ? "filter-checked" : null}
+          className={`genre-div ${selectedGenreID === "all" ? "filter-checked" : null}`}
           onClick={() => {
-            setActiveFilter("all");
+            setActiveFilter("All");
+            setSelectedGenreID("all");
+            console.log("All selected", filteredMovies);
           }}
         >
           All
         </div>
-        <div
-          name="top-ten"
-          className={"top-ten" == activeFilter ? "filter-checked" : null}
-          onClick={() => {
-            setActiveFilter("top-ten");
-          }}
-        >
-          Top Ten
-        </div>
-        <div>Newest</div>
-        <div>2024</div>
-        <div>Science Fiction</div>
-        <div>Romance</div>
-        <div>Movies</div>
-        <div>Series</div>
-      </div>
 
-      <div className="movies-container">
-        {movieData.map((movie) => (
-          <Link to={`/movie/${movie.id}`} key={movie.id}>
-            <div className="movie-card">
-              <img src={movie.poster_path ? moviePictureUrl + movie.poster_path : placeholderImage} />
-            </div>
-          </Link>
+        {genreJson.map((genre) => (
+          <div
+            key={genre.id}
+            className={`genre-div ${selectedGenreID === genre.id ? "filter-checked" : null}`}
+            onClick={() => {
+              setSelectedGenreID(genre.id);
+              setActiveFilter(genre.name);
+              console.log("Genre selected", activeFilter, selectedGenreID, filteredMovies);
+            }}
+          >
+            {genre.name}
+          </div>
         ))}
+      </div>
+      <div className="movies-container">
+        {filteredMovies.length > 0 ? (
+          filteredMovies.map((movie) => (
+            <Link to={`/movie/${movie.id}`} key={movie.id}>
+              <div className="movie-card">
+                <img src={movie.poster_path ? `${moviePictureUrl}${movie.poster_path}` : placeholderImage} alt={movie.title} />
+              </div>
+            </Link>
+          ))
+        ) : (
+          <p>No movies found for this genre.</p>
+        )}
       </div>
     </div>
   );
