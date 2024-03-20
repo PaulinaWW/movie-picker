@@ -3,7 +3,7 @@ import genreJson from "../assets/genres.json";
 import { useNavigate } from "react-router-dom";
 import placeholder from "../assets/imgs/placeholder.jpg";
 import { useState, useEffect } from "react";
-
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 export const EditPage = () => {
   const [movieData, setMovieData] = useState(null);
   const { id } = useParams();
@@ -21,7 +21,7 @@ export const EditPage = () => {
   useEffect(() => {
     const getMovies = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/movies/${id}`);
+        const res = await fetch(`${API_URL}/movies/${id}`);
         const parsedRes = await res.json();
         setMovieData(parsedRes);
       } catch (err) {
@@ -73,7 +73,7 @@ export const EditPage = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:5000/movies/${id}`, {
+      const res = await fetch(`${API_URL}/movies/${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",

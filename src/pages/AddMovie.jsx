@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 export const AddMovie = () => {
   const [title, setTitle] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
@@ -23,7 +23,7 @@ export const AddMovie = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:5000/movies/`, {
+      const res = await fetch(`${API_URL}/movies/`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -42,13 +42,13 @@ export const AddMovie = () => {
 
   const handleResetDB = async () => {
     try {
-      const res = await fetch("http://localhost:5000/movies-backup");
+      const res = await fetch(`${API_URL}/movies-backup`);
       const parsedRes = await res.json();
       setMovieData(parsedRes);
       console.log("This is the ", movieData);
 
       try {
-        const res = await fetch(`http://localhost:5000/movies/`, {
+        const res = await fetch(`${API_URL}/movies/`, {
           method: "PUT",
           headers: {
             "Content-type": "application/json",

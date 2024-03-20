@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import placeholder from "../assets/imgs/placeholder.jpg";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 export const DetailsPage = () => {
   const [movieData, setMovieData] = useState(null);
   const { id } = useParams();
@@ -15,7 +15,7 @@ export const DetailsPage = () => {
   useEffect(() => {
     const getMovies = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/movies/${id}`);
+        const res = await fetch(`${API_URL}/movies/${id}`);
         const parsedRes = await res.json();
         setMovieData(parsedRes);
       } catch (err) {
@@ -45,7 +45,7 @@ export const DetailsPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/movies/${id}`, {
+      await fetch(`${API_URL}/movies/${id}`, {
         method: "DELETE",
       });
     } catch (err) {
