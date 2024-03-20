@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import placeholderImage from "../assets/imgs/placeholder.jpg";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const MovieList = () => {
   const [movieData, setMovieData] = useState(null);
@@ -9,7 +10,7 @@ const MovieList = () => {
   useEffect(() => {
     const getMovies = async () => {
       try {
-        const res = await fetch("http://localhost:5000/movies");
+        const res = await fetch(`${API_URL}/movies`);
         const parsedRes = await res.json();
         setMovieData(parsedRes);
       } catch (err) {
