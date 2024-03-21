@@ -70,7 +70,7 @@ export const EditPage = () => {
       overview: overview,
       poster_path: movieData.poster_path,
       genre_ids: movieData.genre_ids,
-      vote_average: Math.round(movieData.vote_average * 100) / 100,
+      vote_average: movieData.vote_average ? Math.round(movieData.vote_average * 100) / 100 : null,
     };
 
     try {
