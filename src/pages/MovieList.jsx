@@ -76,7 +76,13 @@ const MovieList = () => {
           filteredMovies.map((movie) => (
             <Link to={`/movie/${movie.id}`} key={movie.id}>
               <div className="movie-card">
-                <img src={movie.poster_path ? `${moviePictureUrl}${movie.poster_path}` : placeholderImage} alt={movie.title} />
+                <img
+                  src={movie.poster_path ? moviePictureUrl + movie.poster_path : placeholderImage}
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src = movie.poster_path;
+                  }}
+                />
               </div>
             </Link>
           ))

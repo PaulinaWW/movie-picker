@@ -59,7 +59,7 @@ export const MoviePicker = () => {
       {!showHpImg && (
         <div className="question-container">
           <h4>
-            Question ({questionNum + 1}/{questionData.questions.length}):
+            Question ({questionNum + 1}/{questionData.questions.length})
           </h4>
           <h3>{questionData.questions[questionNum].question}</h3>
         </div>
