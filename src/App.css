@@ -269,6 +269,11 @@
   width: 100%;
 }
 
+.picker-restart-btn {
+  width: 100%;
+  margin-top: 20px;
+}
+
 .question-container {
   margin: 100px 0 20px 0;
   display: flex;

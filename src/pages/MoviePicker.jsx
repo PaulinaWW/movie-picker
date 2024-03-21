@@ -7,7 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 export const MoviePicker = () => {
   const [questionNum, setQuestionNum] = useState(0);
   const hpMoviesArr = [671, 672, 673, 674, 675, 767, 12444, 12445];
-  const [rndMovieIndex] = useState(Math.floor(Math.random() * hpMoviesArr.length));
+  const [rndMovieIndex, setRndMovieIndex] = useState(Math.floor(Math.random() * hpMoviesArr.length));
   const [hpMovie, setHPMovie] = useState(null);
   const moviePictureUrl = "https://image.tmdb.org/t/p/w500";
   const [showHpImg, setShowHpImg] = useState(false);
@@ -33,7 +33,13 @@ export const MoviePicker = () => {
       }
     };
     getHPMovie();
-  }, []);
+  }, [rndMovieIndex]);
+
+  const handleRestart = () => {
+    setRndMovieIndex(Math.floor(Math.random() * hpMoviesArr.length));
+    setQuestionNum(0);
+    setShowHpImg(false);
+  };
 
   if (!hpMovie) {
     <p>Loading ...</p>;
@@ -43,6 +49,11 @@ export const MoviePicker = () => {
     <div className="movie-picker-page">
       <div>
         <h1>Movie Picker</h1>
+        {showHpImg && (
+          <button className="picker-restart-btn crud-btn" onClick={handleRestart}>
+            Restart Movie Picker
+          </button>
+        )}
       </div>
 
       {!showHpImg && (
