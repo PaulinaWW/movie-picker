@@ -6,9 +6,11 @@ export const NavBar = () => {
   return (
     <div>
       <nav className="nav-header">
-        <div>
-          <img className="nav-logo" src={clapperBoardlogo} alt="logo" />
-        </div>
+        <Link to="/">
+          <div>
+            <img className="nav-logo" src={clapperBoardlogo} alt="logo" />
+          </div>
+        </Link>
         <Link to="/">
           <div className="nav-text">All Movies</div>
         </Link>

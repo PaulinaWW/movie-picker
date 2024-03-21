@@ -24,9 +24,8 @@ const MovieList = () => {
         console.log(err);
       }
     };
-    setTimeout(async () => {
-      getMovies();
-    }, 2000);
+
+    getMovies();
   }, []);
 
   useEffect(() => {

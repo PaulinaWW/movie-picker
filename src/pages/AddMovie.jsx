@@ -41,32 +41,33 @@ export const AddMovie = () => {
   };
 
   return (
-    <div>
-      <div>Add Movie</div>
+    <div className="add-movie-page">
+      <div>
+        <h1>Add a Movie to the Database</h1>
+      </div>
       <form onSubmit={handleAddCard} className="add-movie-form">
         <label>
           <div>Title</div>
-          <br />
           <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
         </label>
+
         <label>
           <div>Release Date</div>
-          <br />
-          <input type="text" placeholder="Release Date" value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} />
+          <input type="date" placeholder="Release Date" value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} />
         </label>
+
         <label>
           <div>Description</div>
-          <br />
-          <input type="text" placeholder="Overview" value={overview} onChange={(e) => setOverview(e.target.value)} />
+          <textarea cols="30" rows="10" placeholder="Description..." value={overview} onChange={(e) => setOverview(e.target.value)} />
         </label>
+
         <label>
-          <div>Poster Path - Please provide URL</div>
-          <br />
+          <div>Poster Path (URL)</div>
           <input type="text" placeholder="Poster Path" value={posterPath} onChange={(e) => setPosterPath(e.target.value)} />
         </label>
+
         <label>
           <div>Genres</div>
-          <br />
           <select name="genres" value={genre} onChange={(e) => setGenre(e.target.value)}>
             <option value="">-Select Genre-</option>
             <option value="28">Action</option>
@@ -75,6 +76,7 @@ export const AddMovie = () => {
             <option value="35">Comedy</option>
           </select>
         </label>
+
         <button className="crud-btn">Add Movie</button>
       </form>
     </div>
