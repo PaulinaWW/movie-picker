@@ -1,16 +1,24 @@
 {
   "questions": [
     {
-      "question": "What Genre do you prefer?",
-      "answers": ["Action", "Drama", "Comedy", "Romance"]
+      "question": "How would you describe your mood tonight?",
+      "answers": ["Romantic and cozy", "Ready for some laughs", "In the mood for adventure", "Feeling brave", "Sci-fi and fantasy escapism"]
     },
     {
-      "question": "How old are you?",
-      "answers": ["<12", "12-18", "18-29", "30+"]
+      "question": "How do you want the movie to make you feel?",
+      "answers": ["Heart-warmed", "On the edge of our seats", "Nostalgic", "Inspired", "Intrigued"]
     },
     {
-      "question": "Question 3",
-      "answers": ["A1", "A2", "A3", "A4"]
+      "question": "What's the setting for your movie night?",
+      "answers": ["Cozy night in", "Movie marathon", "Romantic backdrop", "Dinner and a movie", "Themed movie night"]
+    },
+    {
+      "question": "What theme are you interested in?",
+      "answers": ["Love conquers all", "Adventure and discovery", "Overcoming challenges together", "Lighthearted and fun", "Mystery and suspense"]
+    },
+    {
+      "question": "What's the occasion?",
+      "answers": ["Casual date night", "Celebrating an anniversary", "Special occasion", "Just because we love movies", "Netflix & Chill"]
     }
   ]
 }

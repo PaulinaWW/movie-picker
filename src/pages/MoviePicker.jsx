@@ -78,6 +78,9 @@ export const MoviePicker = () => {
           <div className="answer" onClick={handleSubmit}>
             <div>{questionData.questions[questionNum].answers[3]}</div>
           </div>
+          <div className="answer" onClick={handleSubmit}>
+            <div>{questionData.questions[questionNum].answers[4]}</div>
+          </div>
         </div>
       )}
 
